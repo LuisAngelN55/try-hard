@@ -1,12 +1,15 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { NextUIProvider } from '@nextui-org/react'
+import '../styles/globals.css';
+import type { AppProps } from 'next/app';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+
+import { lightTheme, darkTheme } from '../src/themes';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <NextUIProvider>
+    <ThemeProvider theme={ lightTheme }>
+      <CssBaseline />
       <Component {...pageProps} />
-    </NextUIProvider>
+    </ThemeProvider>
   )
 }
 
