@@ -1,1 +1,1 @@
-export * from './useDisplayBreakpoints';
+export * from './useUIDisplaySettings';

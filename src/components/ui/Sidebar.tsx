@@ -1,8 +1,10 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '../../../src/store';
 import { Box, Divider, Typography, List, ListItem, ListItemButton, ListItemText, Drawer } from '@mui/material';
-import { toogleSidbar } from '../../store/ui';
+
+import type { RootState } from '../../../src/store';
+import { onToggleSidbar } from '../../store/ui';
+import { drawerVariantType } from '../../interfaces/';
 
 
 const navItems = ['Home', 'About', 'Contact'];
@@ -16,27 +18,31 @@ interface Props {
 
 export const Sidebar:FC<Props> = ({ sidebarWidth, children }) => {
 
-    const { showSidebar } = useSelector( (state: RootState) => state.ui );
     const dispatch = useDispatch();
+
+    const { showSidebar, displaySize, drawerVariant } = useSelector( (state: RootState) => state.ui );
+
+    
 
     const handleDrawerToggle = () => {
 
-        dispatch( toogleSidbar() );
+        dispatch( onToggleSidbar() );
     }
 
   return (
     <Box component="nav">
         <Drawer
-            variant="temporary"
+            variant={ drawerVariant }
             open={ showSidebar }
             onClose={handleDrawerToggle}
             ModalProps={{
                 keepMounted: true, // Better open performance on mobile.
             }}
             sx={{
-                display: showSidebar ? { xs: 'block', sm: 'block' } : { xs: 'block', sm: 'block' },
+                display: showSidebar ? { xs: 'block' } : { xs: 'none' },
                 // display: showSidebar ? { xs: 'none', sm: 'block' } : { xs: 'block', sm: 'none' },
                 '& .MuiDrawer-paper': { boxSizing: 'border-box', width: sidebarWidth },
+                backgroundColor: 'rgba(248,248,255, 0.5)'
             }}
         >
             <Box onClick={ () => console.log('press')} sx={{ textAlign: 'center' }}>

@@ -1,8 +1,11 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import Head from 'next/head';
+import { useDispatch } from 'react-redux';
 import { Toolbar, Box } from '@mui/material';
 
 import { Navbar, Sidebar } from '../ui';
-import Head from 'next/head';
+import { useUIDisplaySettings } from '../../hooks';
+import { onDisplayBreakpoint } from '../../store/ui';
 
 const sidebarWidth = 250;
 
@@ -12,6 +15,16 @@ interface Props {
 }
 
 export const MainLayout: FC<Props> = ({ title= 'Try Hard', children }) => {
+
+  const dispatch = useDispatch();
+
+  const { currentDisplayBreakPoint, drawerVariant } =  useUIDisplaySettings();
+  
+  useEffect(() => {
+    dispatch( onDisplayBreakpoint({ currentDisplayBreakPoint, drawerVariant }) );
+  }, [ currentDisplayBreakPoint ])
+
+
   return (
     <Box 
     className="animate__animated animate__fadeIn animate__faster"

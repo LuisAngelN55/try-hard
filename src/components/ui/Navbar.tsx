@@ -1,13 +1,9 @@
-import {
-  Typography, AppBar, Box, Divider, Drawer,
-  IconButton, List, ListItem, ListItemButton,
-  ListItemText, Toolbar, Button
-} from '@mui/material';
-import { Menu } from "@mui/icons-material";
-import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { toogleSidbar } from '../../store/ui';
-import { useDisplayBreakpoints } from '../../hooks';
+import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Typography, AppBar, Box, IconButton, Toolbar, Button } from '@mui/material';
+import { Menu, KeyboardArrowLeftOutlined as LeftArrowIcon } from "@mui/icons-material";
+import { onToggleSidbar } from '../../store/ui';
+import { RootState } from '../../store';
 
 const navItems = ['Home', 'About', 'Contact'];
 
@@ -19,24 +15,22 @@ interface Props {
 export const Navbar:FC<Props> = ({ sidebarWidth, children }) => {
 
   const dispatch = useDispatch();
-
+  const { showSidebar } = useSelector( (state: RootState) => state.ui )
   const handleDrawerToggle = () => {
+    dispatch( onToggleSidbar() );
+  }
 
-    dispatch( toogleSidbar() );
-}
-
-const diplay =  useDisplayBreakpoints();
-console.log(diplay)
 
   return (
     <Box sx={{
-      display: 'flex',
+      display: 'fixed',
     }}>
       <AppBar component="nav"
       sx={{
-        width: { sm: `calc(100% - ${ sidebarWidth }px)` },
-        ml: { sm: `${ sidebarWidth }px`}  
-      }}>
+        width: showSidebar ? { sm: `calc(100% - ${ sidebarWidth }px)` } : { sm: '100%'},
+        ml: showSidebar ? { sm: `${ sidebarWidth }px`} : { sm: 0 },
+      }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -47,6 +41,19 @@ console.log(diplay)
           >
             <Menu />
           </IconButton>
+
+
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'block' } }}
+          >
+            <LeftArrowIcon />
+          </IconButton>
+
+
           <Typography
             variant="h6"
             component="div"

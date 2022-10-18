@@ -22,4 +22,17 @@ export const lightTheme = createTheme({
     shape: {
       borderRadius: 4,
     },
+    components: {
+      MuiAppBar: {
+        defaultProps: {
+          position: 'fixed',
+          
+        },
+        styleOverrides: {
+          root: {
+
+          }
+        }
+      },
+    }
 })

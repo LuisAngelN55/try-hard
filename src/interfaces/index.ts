@@ -1,1 +1,1 @@
-export * from './displayBreakPoints';
+export * from './uiDisplay';
