@@ -8,12 +8,12 @@ export const uiSlice = createSlice({
 
     },
     reducers: {
-        increment: (state, /* action */ ) => {
-            state.showSidebar = true;
+        toogleSidbar: (state, /* action */ ) => {
+            state.showSidebar = !state.showSidebar;
         },
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { increment } = uiSlice.actions;
+export const { toogleSidbar } = uiSlice.actions;

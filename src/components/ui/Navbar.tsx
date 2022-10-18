@@ -5,6 +5,9 @@ import {
 } from '@mui/material';
 import { Menu } from "@mui/icons-material";
 import { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { toogleSidbar } from '../../store/ui';
+import { useDisplayBreakpoints } from '../../hooks';
 
 const navItems = ['Home', 'About', 'Contact'];
 
@@ -14,6 +17,16 @@ interface Props {
 }
 
 export const Navbar:FC<Props> = ({ sidebarWidth, children }) => {
+
+  const dispatch = useDispatch();
+
+  const handleDrawerToggle = () => {
+
+    dispatch( toogleSidbar() );
+}
+
+const diplay =  useDisplayBreakpoints();
+console.log(diplay)
 
   return (
     <Box sx={{
@@ -29,7 +42,7 @@ export const Navbar:FC<Props> = ({ sidebarWidth, children }) => {
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            // onClick={handleDrawerToggle}
+            onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
             <Menu />
