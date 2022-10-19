@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Divider, Typography, List, ListItem, ListItemButton, ListItemText, Drawer } from '@mui/material';
+import { Box, Divider, Typography, List, ListItem, ListItemButton, ListItemText, Drawer, useTheme } from '@mui/material';
 
 import type { RootState } from '../../../src/store';
 import { onToggleSidbar } from '../../store/ui';
@@ -21,7 +21,7 @@ export const Sidebar:FC<Props> = ({ sidebarWidth, children }) => {
 
     const { showSidebar, displaySize, drawerVariant } = useSelector( (state: RootState) => state.ui );
 
-    
+    const theme = useTheme();
 
     const handleDrawerToggle = () => {
 
@@ -31,12 +31,17 @@ export const Sidebar:FC<Props> = ({ sidebarWidth, children }) => {
   return (
     <Box component="nav">
         <Drawer
+        anchor='left'
+        PaperProps={{
+            // style: { backgroundColor: '#000' }
+          }}
             variant={ drawerVariant }
             open={ showSidebar }
             onClose={handleDrawerToggle}
             ModalProps={{
                 keepMounted: true, // Better open performance on mobile.
             }}
+            transitionDuration ={{ enter: 400, exit: 1000 }}
             sx={{
                 display: showSidebar ? { xs: 'block' } : { xs: 'none' },
                 // display: showSidebar ? { xs: 'none', sm: 'block' } : { xs: 'block', sm: 'none' },

@@ -10,7 +10,7 @@ export interface UIState {
 }  
 
 const initialState: UIState = {
-showSidebar: true,
+showSidebar: false,
 showNavbar: true,
 displaySize: 'sm',
 drawerVariant: 'temporary'

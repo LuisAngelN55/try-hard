@@ -30,9 +30,11 @@ export const Navbar:FC<Props> = ({ sidebarWidth, children }) => {
       display: 'fixed',
     }}>
       <AppBar component="nav"
+      // className='animate__animated animate__bounce animate__delay-3s'
       sx={{
         width: showSidebar ? { sm: `calc(100% - ${ sidebarWidth }px)` } : { sm: '100%'},
         ml: showSidebar ? { sm: `${ sidebarWidth }px`} : { sm: 0 },
+        transition: 'width 0.4s'
       }}
       >
         <Toolbar>

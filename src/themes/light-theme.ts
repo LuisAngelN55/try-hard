@@ -30,9 +30,14 @@ export const lightTheme = createTheme({
         },
         styleOverrides: {
           root: {
-
+         
           }
         }
       },
+    },
+    transitions: {
+      duration: {
+     
+      }
     }
 })
