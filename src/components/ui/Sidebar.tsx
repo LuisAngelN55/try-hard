@@ -4,7 +4,6 @@ import { Box, Divider, Typography, List, ListItem, ListItemButton, ListItemText,
 
 import type { RootState } from '../../../src/store';
 import { onToggleSidbar } from '../../store/ui';
-import { drawerVariantType } from '../../interfaces/';
 
 
 const navItems = ['Home', 'About', 'Contact'];

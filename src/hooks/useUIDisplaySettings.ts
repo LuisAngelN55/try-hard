@@ -33,7 +33,7 @@ export const useUIDisplaySettings = () => {
 
     let drawerVariant:drawerVariantType = 'temporary'; // persistent
 
-    if ( currentDisplayBreakPoint === 'md' || currentDisplayBreakPoint === 'lg' ) {
+    if ( currentDisplayBreakPoint === 'sm' || currentDisplayBreakPoint === 'md' || currentDisplayBreakPoint === 'lg' ) {
         drawerVariant = 'persistent';
     } else if ( currentDisplayBreakPoint === 'xl' ) {
         drawerVariant = 'permanent';

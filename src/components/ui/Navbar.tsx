@@ -1,7 +1,11 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, AppBar, Box, IconButton, Toolbar, Button } from '@mui/material';
-import { Menu, KeyboardArrowLeftOutlined as LeftArrowIcon } from "@mui/icons-material";
+import { 
+  SettingsOutlined as SettingsIcon,
+  KeyboardArrowLeftOutlined as LeftArrowIcon,
+  KeyboardArrowRightOutlined as RightArrowIcon
+  } from "@mui/icons-material";
 import { onToggleSidbar } from '../../store/ui';
 import { RootState } from '../../store';
 
@@ -32,16 +36,6 @@ export const Navbar:FC<Props> = ({ sidebarWidth, children }) => {
       }}
       >
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <Menu />
-          </IconButton>
-
 
           <IconButton
             color="inherit"
@@ -50,24 +44,40 @@ export const Navbar:FC<Props> = ({ sidebarWidth, children }) => {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'block' } }}
           >
-            <LeftArrowIcon />
+            {
+              showSidebar ? <LeftArrowIcon /> : <RightArrowIcon />
+            }
           </IconButton>
 
-
+          
           <Typography
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+            MUIs
           </Typography>
+
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
               <Button key={item} sx={{ color: '#fff' }}>
+            
                 {item}
               </Button>
+
+              
             ))}
           </Box>
+
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'block' } }}
+          >
+                  <SettingsIcon/>
+           </IconButton>
         </Toolbar>
       </AppBar>
     </Box>
