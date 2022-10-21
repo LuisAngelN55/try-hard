@@ -1,17 +1,18 @@
 import { FC } from 'react'
+import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Divider, Typography, List, ListItem, ListItemButton, ListItemText, Drawer, useTheme } from '@mui/material';
+import { Box, Divider, List, ListItem, ListItemButton, ListItemText, Drawer, useTheme } from '@mui/material';
 
 import type { RootState } from '../../../src/store';
 import { onToggleSidbar } from '../../store/ui';
 
 
-const navItems = ['Home', 'About', 'Contact'];
+const navItems = ['Dashboard', 'Clientes', 'Pagos'];
 
 
 interface Props {
     children?: React.ReactNode;
-    sidebarWidth: number;
+    sidebarWidth: number[];
 }
 
 
@@ -19,21 +20,16 @@ export const Sidebar:FC<Props> = ({ sidebarWidth, children }) => {
 
     const dispatch = useDispatch();
 
-    const { showSidebar, displaySize, drawerVariant, themeMode } = useSelector( (state: RootState) => state.ui );
+    const { showSidebar, drawerVariant, themeMode } = useSelector( (state: RootState) => state.ui );
 
     const theme = useTheme();
 
     const handleDrawerToggle = () => {
-
         dispatch( onToggleSidbar() );
     }
 
   return (
-    <Box component="nav"
-    style={{transition: theme.transitions.create("all", {
-        easing: theme.transitions.easing.sharp, 
-        duration: theme.transitions.duration.leavingScreen,
-    })}} >
+    <Box component="nav">
         <Drawer
             anchor='left'
             PaperProps={{
@@ -48,7 +44,7 @@ export const Sidebar:FC<Props> = ({ sidebarWidth, children }) => {
             // transitionDuration ={{ enter: 400, exit: 1000 }}
             sx={{
                 display: showSidebar ? { xs: 'block' } : { xs: 'none' },
-                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: sidebarWidth },
+                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: { xs: sidebarWidth[0], md: sidebarWidth[1]} },
                 backgroundColor: 'rgba(248,248,255, 0.5)'
             }}
             style={{transition: theme.transitions.create("all", {
@@ -56,30 +52,31 @@ export const Sidebar:FC<Props> = ({ sidebarWidth, children }) => {
                 duration: theme.transitions.duration.leavingScreen,
             })}} 
         >
-            <Box onClick={ () => console.log('press')} sx={{ textAlign: 'center' }}>
-                <Box
-                    sx={{
-                        mx: '20px', my: '15px'
-                    }}
-                >
+            
+            <Box sx={{ textAlign: 'center' }}>
+
+                <Box sx={{ mx: '20px', my: '15px', maxHeight:'200px'}}>
                     {
                         themeMode === 'light'
-                            ? <img src='/assets/img/TryHard_Logo.png' alt="Try Hard Logo" width='100%'/>
-                            : <img src='/assets/img/Logo_TryHard_Blanco.png' alt="Try Hard Logo" width='100%'/>
+                            ? <Image src='/assets/img/TryHard_Logo.png' alt="Try Hard Logo" width="210px" height="68px"/>
+                            : <Image src='/assets/img/Logo_TryHard_Blanco.png' alt="Try Hard Logo" width="210px" height="68px"/>
                     }
-
                 </Box>
                 
                 <Divider />
+
                 <List>
-                    {navItems.map((item) => (
-                    <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
-                        <ListItemText primary={item} />
-                        </ListItemButton>
-                    </ListItem>
-                    ))}
+                    {
+                        navItems.map((item) => (
+                            <ListItem key={item} disablePadding>
+                                <ListItemButton sx={{ textAlign: 'center' }}>
+                                    <ListItemText primary={item} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))
+                    }
                 </List>
+
             </Box>
         </Drawer>
     </Box>

@@ -11,7 +11,7 @@ export const lightTheme = createTheme({
           main: '#2b58f1',
         },
         background: {
-          paper: 'rgba(248,248,255,0.65)',
+          paper: 'rgba(248,248,255,1)',
           default: '#fff',
         },
         divider: 'rgba(154,154,158,0.35)',

@@ -1,24 +1,26 @@
 import { FC, useEffect } from 'react';
 import Head from 'next/head';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Toolbar, Box } from '@mui/material';
 
 import { Navbar, Sidebar } from '../ui';
 import { useUIDisplaySettings } from '../../hooks';
 import { onDisplayBreakpoint } from '../../store/ui';
+import { RootState } from '../../store';
 
-const sidebarWidth = 250;
 
 interface Props {
     children: React.ReactNode;
     title?: string;
     appbarMarginTop: number;
+    sidebarWidth: number[];
 }
 
-export const MainLayout: FC<Props> = ({ title= 'Try Hard', children, appbarMarginTop }) => {
+export const AppLayout: FC<Props> = ({ title= 'Try Hard', children, appbarMarginTop, sidebarWidth }) => {
 
   const dispatch = useDispatch();
 
+  const { showSidebar } = useSelector( (state: RootState) => state.ui )
   const { currentDisplayBreakPoint, drawerVariant } =  useUIDisplaySettings();
   
   useEffect(() => {
@@ -29,7 +31,7 @@ export const MainLayout: FC<Props> = ({ title= 'Try Hard', children, appbarMargi
   return (
     <Box 
     className="animate__animated animate__fadeIn animate__faster"
-    sx={{ display: 'flex', }}>
+    sx={{ display: 'block' }}>
 
     <Head>
         <title>{ title }</title>
@@ -40,9 +42,15 @@ export const MainLayout: FC<Props> = ({ title= 'Try Hard', children, appbarMargi
       <Navbar sidebarWidth={ sidebarWidth } appbarMarginTop={appbarMarginTop}/>
       <Sidebar sidebarWidth={ sidebarWidth } />
 
-      <Box 
+      <Box // Espacio para las vistas de la APP
           component='main'
-          sx={{ flexGrow: 1, p: 3}}
+          sx={{
+            flexGrow: 1, p: 3,
+            mt:( appbarMarginTop + 'px'),
+            width: showSidebar ? { sm: `calc(100% - ${ sidebarWidth[0] }px)`, md: `calc(100% - ${ sidebarWidth[1] }px)` } : { xs: '100%'},
+            ml: showSidebar ? { sm: `${sidebarWidth[0]}px`, md: `${sidebarWidth[1]}px` } : { sm: 0 },
+            // transition: 'width 0.4s'
+          }}
       >
         <Toolbar />
 

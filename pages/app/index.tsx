@@ -1,20 +1,19 @@
-import React from 'react'
-import { MainLayout } from '../../src/components/layouts'
-import { AppView } from '../../src/components/views'
+import { NextPage } from 'next';
 
-const sidebarWidth = 250;
+import { AppLayout } from '../../src/components/layouts'
+import { TestView } from '../../src/components/views'
 
-export const App = () => {
+export const sidebarWidth = [ 200, 250 ];
+export const appbarMarginTop = 15;
+
+const App: NextPage = () => {
     return (
-        <MainLayout>
-          <AppView sidebarWidth={ sidebarWidth }>
-            <h1>MainView</h1>
-          </AppView>
+        <AppLayout sidebarWidth={ sidebarWidth } appbarMarginTop={appbarMarginTop} >
+          
+          <TestView />
     
-        </MainLayout>
-    
-    
-    
+        </AppLayout>
     )
 }
 
+export default App;

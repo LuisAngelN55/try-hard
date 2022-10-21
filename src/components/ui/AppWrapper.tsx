@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { lightTheme, darkTheme } from '../../themes';
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+
+import { lightTheme, darkTheme } from '../../themes';
 import { RootState } from '../../store';
 
 interface Props {
