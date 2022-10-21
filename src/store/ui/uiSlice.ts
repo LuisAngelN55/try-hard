@@ -1,19 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { displayBreakPoint, drawerVariantType } from '../../interfaces/uiDisplay';
+import { displayBreakPoint, drawerVariantType, UIState, themeType } from '../../interfaces/uiDisplay';
 
-
-export interface UIState {
-    showSidebar: boolean,
-    showNavbar: boolean,
-    displaySize: displayBreakPoint,
-    drawerVariant: drawerVariantType
-}  
 
 const initialState: UIState = {
-showSidebar: false,
-showNavbar: true,
-displaySize: 'sm',
-drawerVariant: 'temporary'
+    showSidebar: true,
+    showNavbar: true,
+    displaySize: 'sm',
+    drawerVariant: 'temporary',
+    themeMode: 'light',
 }
 
 
@@ -29,9 +23,12 @@ export const uiSlice = createSlice({
         onToggleSidbar: (state, /* action */ ) => {
             state.showSidebar = !state.showSidebar;
         },
+        onToggleThemeMode: ( state, action ) => {
+            state.themeMode = action.payload;
+        },
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onToggleSidbar, onDisplayBreakpoint } = uiSlice.actions;
+export const { onToggleSidbar, onDisplayBreakpoint, onToggleThemeMode } = uiSlice.actions;

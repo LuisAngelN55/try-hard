@@ -12,9 +12,10 @@ const sidebarWidth = 250;
 interface Props {
     children: React.ReactNode;
     title?: string;
+    appbarMarginTop: number;
 }
 
-export const MainLayout: FC<Props> = ({ title= 'Try Hard', children }) => {
+export const MainLayout: FC<Props> = ({ title= 'Try Hard', children, appbarMarginTop }) => {
 
   const dispatch = useDispatch();
 
@@ -22,7 +23,7 @@ export const MainLayout: FC<Props> = ({ title= 'Try Hard', children }) => {
   
   useEffect(() => {
     dispatch( onDisplayBreakpoint({ currentDisplayBreakPoint, drawerVariant }) );
-  }, [ currentDisplayBreakPoint ])
+  }, [ currentDisplayBreakPoint, dispatch, drawerVariant ])
 
 
   return (
@@ -36,7 +37,7 @@ export const MainLayout: FC<Props> = ({ title= 'Try Hard', children }) => {
         <link rel="icon" href="/favicon.ico" />
     </Head>
 
-      <Navbar sidebarWidth={ sidebarWidth } />
+      <Navbar sidebarWidth={ sidebarWidth } appbarMarginTop={appbarMarginTop}/>
       <Sidebar sidebarWidth={ sidebarWidth } />
 
       <Box 
